@@ -81,30 +81,44 @@ public class Realm {
             System.out.println("У торговца нет товара, зайдите в следующий раз");
         } else {
             System.out.print("У торговца есть MANA - " + merchant.getMana() + " POTION - " + merchant.getPotion() + ".");
-            System.out.println("Что хотите купить? 1 - MANA, 2 - POTION, 3 - выход без покупок");
-            System.out.println("Пример ввода 1 8. 1 это MANA 8 это количество маны. Больше чем есть у торговца купить нельзя");
+            System.out.println("Что хотите купить? m - MANA, p - POTION, e - выход без покупок");
+            System.out.println("Пример ввода m х. MANA в количестве х. Больше чем есть у торговца купить нельзя");
             boolean b = true;
             while (b){
                 String s[] = br.readLine().split("\\s+");
                 switch (s[0]) {
-                    case "1": {
-                        player.setMagic(player.getMagic() + Integer.valueOf(s[1])<merchant.getMana()?Integer.valueOf(s[1]):merchant.getMana());
-                        System.out.print(player);
-                        b=false;
+                    case "m": {
+                        if (s.length > 1) {
+                            int min = Integer.min(Integer.valueOf(s[1]), player.getMagic());
+                            min = Integer.min(min, player.getGold());
+                            player.setMagic(player.getMagic() + min);
+                            player.setGold(player.getGold() - min);
+                            System.out.print(player);
+                            b = false;
+                        } else {
+                            System.out.println("Что хотите купить? m - MANA, p - POTION, e - выход без покупок");
+                        }
                     }
                     break;
-                    case "2": {
-                        player.setHealthPoints(player.getHealthPoints() + Integer.valueOf(s[1])<merchant.getPotion()?Integer.valueOf(s[1]):merchant.getPotion());
-                        System.out.print(player);
-                        b=false;
+                    case "p": {
+                        if (s.length > 1) {
+                            int min = Integer.min(Integer.valueOf(s[1]), player.getHealthPoints());
+                            min = Integer.min(min, player.getGold());
+                            player.setHealthPoints(player.getHealthPoints() + min);
+                            player.setGold(player.getGold() - min);
+                            System.out.print(player);
+                            b = false;
+                        } else {
+                            System.out.println("Что хотите купить? m - MANA, p - POTION, e - выход без покупок");
+                        }
                     }
                     break;
-                    case "3":
+                    case "e":
                         b=false;
                         break;
                     default:
                         System.out.print("Сделайте корректный выбор. ");
-                        System.out.println("Что хотите купить? 1 - MANA, 2 - POTION, 3 - выход без покупок");
+                        System.out.println("Что хотите купить? m - MANA, p - POTION, e - выход без покупок");
                     }
             }
 

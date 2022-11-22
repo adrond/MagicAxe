@@ -57,7 +57,7 @@ public abstract class FantasyCharacter implements entity.Fighter {
         return xp;
     }
     public void setXp(int xp) {
-        this.xp = xp;
+        this.xp = Integer.max(xp,0);;
     }
 
     public int getMagic() {
@@ -65,13 +65,13 @@ public abstract class FantasyCharacter implements entity.Fighter {
     }
 
     public void setMagic(int xp) {
-        this.magic = magic;
+        this.magic = Integer.max(magic,0);
     }
     public int getGold() {
         return gold;
     }
     public void setGold(int gold) {
-        this.gold = gold;
+        this.gold = Integer.max(gold,0);
     }
     private int getRandomValue() {
         return (int) (Math.random() * 100);
@@ -79,6 +79,6 @@ public abstract class FantasyCharacter implements entity.Fighter {
     //Переопределяем вывод в консоль, чтобы выводилось имя и очки здоровья
     @Override
     public String toString() {
-        return String.format("%s здоровье:%d опыт:%e магии:%f", name, healthPoints, xp, magic);
+        return String.format("%s здоровье:%d опыт:%d магии:%d", name, healthPoints, xp, magic);
     }
 }

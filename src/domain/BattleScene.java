@@ -38,6 +38,13 @@ public class BattleScene {
     private Boolean makeHit(FantasyCharacter defender, FantasyCharacter attacker, Realm.FightCallback fightCallback) {
         //Получаем силу удара
         int hit = attacker.attack();
+        if (attacker.getDexterity()>0){
+            hit+=attacker.getDexterity()%10;// увеличиваем сложность игры
+        }
+        if (attacker.getMagic()>0){
+            hit+=attacker.getMagic()%10;
+        }
+
         //Отнимаем количество урона из здоровья защищающегося
         int defenderHealth = defender.getHealthPoints() - hit;
         //Если атака прошла, выводим в консоль сообщение об этом
